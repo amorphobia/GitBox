@@ -2,7 +2,7 @@ const fs = require("fs");
 const git = require("../core");
 
 async function readFileInBranch(dir, filepath, branch) {
-  const base = "refs/remotes/origin/";
+  const base = branch == "HEAD" ? "" : "refs/heads/";
   const sha = await git.resolveRef({ fs, dir, ref: base + branch });
   const { object: { tree } } = await git.readObject({ fs, dir, oid: sha });
   
